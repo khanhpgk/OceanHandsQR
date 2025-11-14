@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mã QR OceanHands</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #00b7dd, #00739c);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        #khung-qr {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 14px;
+            display: inline-block;
+            margin-top: 20px;
+            backdrop-filter: blur(3px);
+        }
+        button {
+            margin: 10px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .nut-lam-moi { background: #00e0ff; color: #003a57; }
+        .nut-in { background: white; color: #005c82; }
+    </style>
+</head>
+<body>
+
+    <div id="khung-qr">
+        <div id="ma-qr"></div>
+    </div>
+
+    <br>
+    <button class="nut-lam-moi" onclick="taoQR()">Làm mới QR</button>
+    <button class="nut-in" onclick="window.print()">In mã QR</button>
+
+    <script>
+        const loiChao =
+        "Chào mừng bạn đến với OceanHands – cùng khám phá biển xanh, nhận quà và lan tỏa hành động xanh!";
+
+        // Nếu có ?loi-chao=1 trong URL → hiển thị lời chào
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get("loi-chao") === "1") {
+            document.body.innerHTML =
+                `<h2 style='padding:20px; text-align:center;'>${loiChao}</h2>`;
+        }
+
+        function taoQR() {
+            document.getElementById("ma-qr").innerHTML = "";
+
+            // Thêm random token để QR luôn mới
+            const random = Math.floor(Math.random() * 1000000);
+
+            const qrLink = "https://khanhpgk.github.io/OceanHandsQR/qr.html?loi-chao=1&token=" + random;
+
+
+            new QRCode(document.getElementById("ma-qr"), {
+                text: qrLink,
+                width: 240,
+                height: 240,
+                colorDark: "#00334e",
+                colorLight: "#ffffff"
+            });
+        }
+
+        // Tạo QR ngay khi tải trang
+        taoQR();
+    </script>
+
+</body>
+</html>
