@@ -1,83 +1,90 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mã QR OceanHands</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mã QR OceanHands</title>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<!-- Thư viện QR -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #00b7dd, #00739c);
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-        #khung-qr {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 20px;
-            border-radius: 14px;
-            display: inline-block;
-            margin-top: 20px;
-            backdrop-filter: blur(3px);
-        }
-        button {
-            margin: 10px;
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        .nut-lam-moi { background: #00e0ff; color: #003a57; }
-        .nut-in { background: white; color: #005c82; }
-    </style>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #00b7dd, #00739c);
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+#khung-qr {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 14px;
+    display: inline-block;
+    margin-top: 20px;
+    backdrop-filter: blur(3px);
+}
+button {
+    margin: 10px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.nut-lam-moi { background: #00e0ff; color: #003a57; }
+.nut-in { background: white; color: #005c82; }
+</style>
 </head>
 <body>
 
-    <div id="khung-qr">
-        <div id="ma-qr"></div>
-    </div>
+<h1>Tạo Mã QR OceanHands</h1>
+<p>Quét mã để xem lời chào!</p>
 
-    <br>
-    <button class="nut-lam-moi" onclick="taoQR()">Làm mới QR</button>
-    <button class="nut-in" onclick="window.print()">In mã QR</button>
+<div id="khung-qr">
+    <div id="ma-qr"></div>
+</div>
 
-    <script>
-        const loiChao =
-        "Chào mừng bạn đến với OceanHands – cùng khám phá biển xanh, nhận quà và lan tỏa hành động xanh!";
+<br>
+<button class="nut-lam-moi" onclick="taoQR()">Làm mới QR</button>
+<button class="nut-in" onclick="window.print()">In mã QR</button>
 
-        // Nếu có ?loi-chao=1 trong URL → hiển thị lời chào
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get("loi-chao") === "1") {
-            document.body.innerHTML =
-                `<h2 style='padding:20px; text-align:center;'>${loiChao}</h2>`;
-        }
+<script>
+// Nội dung lời chào khi quét QR
+const loiChao =
+"Chào mừng bạn đến với OceanHands – cùng khám phá biển xanh, nhận quà và lan tỏa hành động xanh!";
 
-        function taoQR() {
-            document.getElementById("ma-qr").innerHTML = "";
+// Nếu có ?loi-chao=1 → hiển thị lời chào
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get("loi-chao") === "1") {
+    document.body.innerHTML =
+        `<h2 style='padding:20px; text-align:center;'>${loiChao}</h2>`;
+}
 
-            // Thêm random token để QR luôn mới
-            const random = Math.floor(Math.random() * 1000000);
+// Hàm tạo QR code
+function taoQR() {
+    document.getElementById("ma-qr").innerHTML = "";
 
-            const qrLink = "https://khanhpgk.github.io/OceanHandsQR/qr.html?loi-chao=1&token=" + random;
+    // Token random để QR luôn mới
+    const random = Math.floor(Math.random() * 1000000);
 
+    // Link GitHub Pages của bạn
+    const qrLink = "https://khanhpgk.github.io/OceanHandsQR/qr.html?loi-chao=1&token=" + random;
 
-            new QRCode(document.getElementById("ma-qr"), {
-                text: qrLink,
-                width: 240,
-                height: 240,
-                colorDark: "#00334e",
-                colorLight: "#ffffff"
-            });
-        }
+    new QRCode(document.getElementById("ma-qr"), {
+        text: qrLink,
+        width: 240,
+        height: 240,
+        colorDark: "#00334e",
+        colorLight: "#ffffff"
+    });
+}
 
-        // Tạo QR ngay khi tải trang
-        taoQR();
-    </script>
+// Tạo QR khi load trang
+taoQR();
+</script>
 
 </body>
 </html>
+
